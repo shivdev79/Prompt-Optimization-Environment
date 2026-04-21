@@ -32,6 +32,16 @@ def list_tasks() -> Dict[str, list]:
     return {"tasks": list_task_summaries()}
 
 
+@app.get("/", tags=["Health"])
+def root() -> Dict[str, object]:
+    return {
+        "name": "Auto Prompt Optimizer",
+        "status": "ok",
+        "message": "Space is running. Use /docs for Swagger UI and /tasks to inspect benchmark tasks.",
+        "endpoints": ["/health", "/docs", "/schema", "/reset", "/step", "/state", "/tasks"],
+    }
+
+
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     del request
