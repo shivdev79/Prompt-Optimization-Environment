@@ -1,3 +1,13 @@
+---
+title: Promtoptimizer
+emoji: 🚀
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 8000
+pinned: false
+---
+
 # Prompt-Optimization-Environment
 
 Auto Prompt Optimizer is a hackathon-ready OpenEnv environment where an agent iteratively improves prompts for a fixed task family. Each episode starts with a weak prompt, the agent rewrites it, the environment scores the resulting model output, and reward improves over multiple steps.
