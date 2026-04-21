@@ -1,0 +1,156 @@
+{
+  "tasks": [
+    {
+      "task_id": "factual_capital_japan",
+      "family": "factual_qa",
+      "title": "Capital of Japan",
+      "description": "Answer a concise factual geography question with no extra words.",
+      "input_text": "Question: What is the capital of Japan?",
+      "expected_output": {
+        "answer": "Tokyo",
+        "aliases": ["tokyo"]
+      },
+      "expected_format": "Return only the answer in 1-3 words.",
+      "scoring_rubric": {
+        "exact_match": "Reward exact answer match.",
+        "brevity": "Penalize unnecessary words.",
+        "hallucination": "Penalize unsupported extra facts."
+      },
+      "initial_prompt": "Answer the question for the user.",
+      "hints": [
+        "The task prefers exact, short answers.",
+        "Extra facts reduce the score."
+      ],
+      "metadata": {
+        "max_words": 3
+      }
+    },
+    {
+      "task_id": "factual_red_planet",
+      "family": "factual_qa",
+      "title": "Red Planet",
+      "description": "Answer a science fact question briefly and correctly.",
+      "input_text": "Question: Which planet is known as the Red Planet?",
+      "expected_output": {
+        "answer": "Mars",
+        "aliases": ["mars"]
+      },
+      "expected_format": "Return only the planet name.",
+      "scoring_rubric": {
+        "exact_match": "Reward exact answer match.",
+        "brevity": "Prefer one-word outputs.",
+        "hallucination": "Penalize unsupported details."
+      },
+      "initial_prompt": "Please answer helpfully.",
+      "hints": [
+        "The best answer is a single entity.",
+        "Avoid any explanation."
+      ],
+      "metadata": {
+        "max_words": 2
+      }
+    },
+    {
+      "task_id": "json_support_ticket",
+      "family": "json_extraction",
+      "title": "Support Ticket Extraction",
+      "description": "Extract structured fields from a support complaint.",
+      "input_text": "Customer email: The AeroSound X2 speaker keeps disconnecting after five minutes. I need a fix before tomorrow's event, so this is urgent.",
+      "expected_output": {
+        "product": "AeroSound X2 speaker",
+        "issue": "disconnecting after five minutes",
+        "urgency": "high"
+      },
+      "expected_format": "Return valid JSON only with keys product, issue, urgency.",
+      "scoring_rubric": {
+        "json_validity": "JSON must parse successfully.",
+        "field_coverage": "All required keys must be present.",
+        "value_accuracy": "Values should match the source text."
+      },
+      "initial_prompt": "Read the message and summarize it.",
+      "hints": [
+        "The evaluator expects machine-readable JSON.",
+        "Missing keys are penalized."
+      ],
+      "metadata": {}
+    },
+    {
+      "task_id": "json_invoice_parse",
+      "family": "json_extraction",
+      "title": "Invoice Field Parse",
+      "description": "Extract invoice attributes into JSON.",
+      "input_text": "Invoice note: Client BrightLeaf ordered 3 solar chargers for $120 total. Payment status is pending.",
+      "expected_output": {
+        "client": "BrightLeaf",
+        "item": "solar chargers",
+        "quantity": "3",
+        "status": "pending"
+      },
+      "expected_format": "Return valid JSON only with keys client, item, quantity, status.",
+      "scoring_rubric": {
+        "json_validity": "JSON must be valid.",
+        "field_coverage": "Return all required keys.",
+        "value_accuracy": "Values must match the note."
+      },
+      "initial_prompt": "Extract useful details.",
+      "hints": [
+        "Name the required keys explicitly.",
+        "Return only JSON."
+      ],
+      "metadata": {}
+    },
+    {
+      "task_id": "reasoning_ticket_packs",
+      "family": "reasoning",
+      "title": "Ticket Pack Arithmetic",
+      "description": "Solve a short arithmetic word problem with numbered reasoning.",
+      "input_text": "A team has 24 tickets. It gives 6 tickets to sponsors and sells the rest in packs of 3. How many packs are sold?",
+      "expected_output": {
+        "steps": [
+          "Subtract the sponsor tickets: 24 - 6 = 18.",
+          "Divide the remaining tickets into packs: 18 / 3 = 6."
+        ],
+        "final_answer": "6"
+      },
+      "expected_format": "Return numbered steps followed by 'Final answer: 6'.",
+      "scoring_rubric": {
+        "reasoning_steps": "Reward correctly ordered numbered steps.",
+        "final_answer": "Reward correct final answer.",
+        "format": "Require a final answer line."
+      },
+      "initial_prompt": "Solve the problem.",
+      "hints": [
+        "The evaluator checks for numbered steps.",
+        "A separate final answer line improves score."
+      ],
+      "metadata": {}
+    },
+    {
+      "task_id": "reasoning_minutes_math",
+      "family": "reasoning",
+      "title": "Minutes Conversion Math",
+      "description": "Follow multiple arithmetic instructions and report the final result clearly.",
+      "input_text": "Convert 2 hours and 30 minutes into minutes, add 30, then divide by 3.",
+      "expected_output": {
+        "steps": [
+          "Convert 2 hours and 30 minutes into minutes: 150.",
+          "Add 30 to get 180.",
+          "Divide 180 by 3 to get 60."
+        ],
+        "final_answer": "60"
+      },
+      "expected_format": "Return numbered steps followed by 'Final answer: 60'.",
+      "scoring_rubric": {
+        "reasoning_steps": "Reward correct decomposition.",
+        "final_answer": "Reward the correct result.",
+        "format": "Require numbered steps and a final answer line."
+      },
+      "initial_prompt": "Work it out and answer.",
+      "hints": [
+        "Step formatting matters here.",
+        "Keep the final answer explicit."
+      ],
+      "metadata": {}
+    }
+  ]
+}
