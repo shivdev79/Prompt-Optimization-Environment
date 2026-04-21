@@ -21,7 +21,7 @@ except ImportError:  # pragma: no cover
 
 API_BASE_URL = os.environ.get("API_BASE_URL") or "https://api.openai.com/v1"
 MODEL_NAME = os.environ.get("MODEL_NAME") or "gpt-4o-mini"
-HF_TOKEN = os.environ.get("HF_TOKEN") or os.environ.get("OPENAI_API_KEY") or ""
+HF_TOKEN = os.environ.get("OPENAI_API_KEY") or os.environ.get("HF_TOKEN") or ""
 ENV_URL = os.environ.get("ENV_URL") or "http://127.0.0.1:8000"
 BENCHMARK = "auto-prompt-optimizer"
 
@@ -53,7 +53,7 @@ def list_tasks(base_url: str) -> List[Dict[str, Any]]:
 
 def create_openai_client() -> OpenAI:
     if not HF_TOKEN:
-        raise RuntimeError("HF_TOKEN must be set before running inference.py")
+        raise RuntimeError("OPENAI_API_KEY or HF_TOKEN must be set before running inference.py")
     return OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
 
 
